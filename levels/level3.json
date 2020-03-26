@@ -1,0 +1,53 @@
+{
+	"emplacement_boule": [0, 250],
+
+	"nb_boule": [0, 2, 0, 0],
+
+	"type_emplacement_cibles": [
+		[3, 1100, 220]
+	],
+
+	"type_forme_emplacement_cases": [
+		[0, 2, 1060, 140]
+	],
+
+	"epaisseur_emplacement_murs_i": 
+	[100, -500, 1200, 3000, -70],
+
+	"type_emplacement_taille_murs_v": [
+		[0, true, -5000, 0, 6500, 500],
+		[0, true, 1500, -60, 500, 440],
+		[0, true, 2000, 0, 2000, 500],
+
+		[2, true, 800, 720, 60, 720],
+		[2, true, 800, 1120, 60, 240]
+	],
+
+	"type_emplacement_deco": [
+		[0, -50, 0],
+		[0, 100, 0],
+		[0, 403, 0],
+		[0, 601, 0],
+		[0, 820, 0],
+		[0, 925, 0],
+		[0, 1050, 0],
+		[0, 1105, 0],
+		[0, 1295, 0],
+		[0, 1400, 0],
+		[7, 700, 0],
+
+		[3, -40, 10],
+		[4, 850, 720],
+		[2, 1130, 40]
+	],
+
+	"type_bg": [0, 1],
+	"zoomInitial": 0.6,
+
+	"emplacement_taille_textes": [
+		[90, 590, 50, "Chaque boule à son pouvoir (sauf la première)."],
+		[90, 520, 50, "La seconde boule a un pouvoir de grossissement."],
+		[90, 470, 50, "Elle grandit, s'alourdit mais perd en vitesse."],
+		[90, 400, 50, "Lancez-la et cliquez n'importe où, pour voir !"]
+	]
+}
