@@ -1,0 +1,63 @@
+{
+	"emplacement_boule": [0, 250],
+
+	"nb_boule": [2, 0, 0, 0],
+
+	"type_emplacement_cibles": [
+		[0, 440, 900],
+		[2, 460, 70]
+	],
+
+	"type_forme_emplacement_cases": [
+		[1, 1, 600, 220],
+		[0, 0, 600, 150],
+		[1, 1, 600, 80],
+
+		[1, 1, 670, 220],
+		[0, 0, 670, 150],
+		[0, 0, 670, 80],
+
+		[0, 0, 740, 220],
+		[1, 1, 710, 150],
+		[1, 1, 710, 80]
+	],
+
+	"epaisseur_emplacement_murs_i": 
+	[100, -1000, 1200, 1000, -70],
+
+	"type_emplacement_taille_murs_v": [
+		[0, true, -5000, 0, 10608, 500],
+
+		[4, false, 500, 120, 60, 120],
+		[4, false, 500, 840, 60, 60],
+		[4, false, 300, 960, 60, 240]
+	],
+
+	"type_emplacement_deco": [
+		[0, -50, 0],
+		[0, 100, 0],
+		[0, 403, 0],
+		[0, 601, 0],
+		[0, 820, 0],
+		[0, 925, 0],
+		[0, 1050, 0],
+		[0, 1105, 0],
+		[0, 1295, 0],
+		[0, 1400, 0],
+		[7, 700, 0],
+
+		[3, -180, 250],
+		[5, 460, 0]
+	],
+
+	"type_bg": [0, 0],
+
+	"emplacement_taille_textes": [
+		[600, 440, 40, "Vous avez plusieurs boules en bas,"],
+		[600, 400, 40, "elles seront disponible au fur et à mesure de votre avancement."],
+		[600, 340, 40, "Les cibles sont attirées par les autres cibles"],
+		[600, 300, 40, "lorsqu'elle sont libérées, et activent leur pouvoir !"],
+		[600, 260, 40, "Essayez de toucher la cible ci-dessous,"],
+		[600, 220, 40, "pour voir ce qui tombe !"]
+	]
+}
