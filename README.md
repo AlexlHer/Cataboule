@@ -22,3 +22,4 @@ https://www.lri.fr/~kn/teaching/js/projet/2019-2020/projet_m1_info_2019-2020.pdf
 ### Fixed
 
 - Dernière correction sur la collision entre deux objets masse Infinity qui faisait disparaitre ces objets.
+- Correction au niveau du menu pause depuis un niveau perso.
