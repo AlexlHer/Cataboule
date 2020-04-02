@@ -5,21 +5,20 @@ Jeu de catapulte en JavaScript.
 Projet WEB M1S2 :
 https://www.lri.fr/~kn/teaching/js/projet/2019-2020/projet_m1_info_2019-2020.pdf
 
+"Le but de ce projet est de concevoir un jeu de catapulte (de type Angry Birds, mais plus modeste) en HTML5 + Javascript."
+
 ![alt text](Evolution/Fin.png)
 
+## Fonctionnalités de base
+- Toutes implémentées.
+
+## Fonctionnalités avancées
+- Toutes implémentées.
+
 # Derniers changements :
-## [Build F200325.1] - 2020-03-25
-### Build Release Candidate 2 -> Final
-
-### Added
-
-- Ajout de quelques try catch en cas de mauvais JSON.
+## [Version 1.1 / Build F200402.1] - 2020-04-02
 
 ### Changed
 
-- Ajout d'un compteur de pas pour les objets mouvants pour éviter les interbloquages.
-
-### Fixed
-
-- Dernière correction sur la collision entre deux objets masse Infinity qui faisait disparaitre ces objets.
-- Correction au niveau du menu pause depuis un niveau perso.
+- Suppression de jQuery (donc remplacement des jQuery.ajax par des XMLHttpRequest).
+- Modification de la déco des niveaux.

@@ -6,6 +6,17 @@ Projet WEB : Projet Cataboule (M1S2 - 2019-2020)
 
 # Changelog
 
+## [Version 1.1 / Build F200402.1] - 2020-04-02
+
+### Changed
+
+- Suppression de jQuery (donc remplacement des jQuery.ajax par des XMLHttpRequest).
+- Modification de la déco des niveaux.
+
+&nbsp;
+___
+&nbsp;
+
 ## [Version 1.0 / Build F200325.1] - 2020-03-25
 ### Build Release Candidate 2 -> Final
 
