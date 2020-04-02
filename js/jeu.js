@@ -2,7 +2,7 @@
 
 // Classe representant une partie de jeu.
 class Jeu {
-	constructor(){
+	constructor() {
 		// Variable contenant le moteur de jeu.
 		// Utilisé pour accéder aux attributs et méthodes du moteur de jeu.
 		this.engine = null;
@@ -89,7 +89,7 @@ class Jeu {
 	 * Méthode permettant de lier le moteur de jeu et d'initialiser le compteur de FPS.
 	 * @param {Engine} e Le moteur de jeu à lier.
 	 */
-	lierEngine(e){
+	lierEngine(e) {
 		this.engine = e;
 		this.fps = new Texte(
 			this.engine.ctx,
@@ -105,7 +105,7 @@ class Jeu {
 	/**
 	 * Méthode permettant de créer le fond des interfaces plein écran.
 	 */
-	creationBgInterface(){
+	creationBgInterface() {
 
 		// On vide la liste pour éviter de trop remplir la liste dans le cas d'un redimentionnement.
 		this.imagesBgInterface = [];
@@ -155,24 +155,24 @@ class Jeu {
 						w,
 						h,
 						this.engine.images
-							[("case" + Math.floor(Math.random() * Math.floor(4))) + r1]
-							[Math.floor(Math.random() * Math.floor(3))],
+						[("case" + Math.floor(Math.random() * Math.floor(4))) + r1]
+						[Math.floor(Math.random() * Math.floor(3))],
 						false
 					)
 				);
 				// On ajoute height avec un espace de 10px pour voir un peu le fond.
-				i+=h+10;
+				i += h + 10;
 			}
 			// Pareil pour width.
-			j+=w+10;
+			j += w + 10;
 		}
 	}
 
 	/**
 	 * Méthode permettant de charger toutes les images de présentation des niveaux.
 	 */
-	async chargementImageNiveau(){
-		for(let i = 1; i < this.nbLevel+1; i++){
+	async chargementImageNiveau() {
+		for (let i = 1; i < this.nbLevel + 1; i++) {
 			this.images["level" + i] = await this.engine.loadImage("levels/level" + i + ".webp");
 		}
 	}
@@ -191,7 +191,7 @@ class Jeu {
 	/**
 	 * Méthode permettant de dessiner les éléments communs aux interfaces.
 	 */
-	draw(){
+	draw() {
 		for (let i = 0; i < this.boutonsInterface.length; i++) {
 			this.boutonsInterface[i].draw(this.sourisOn.x, this.sourisOn.y);
 		}
@@ -206,7 +206,7 @@ class Jeu {
 	/**
 	 * Méthode permettant de dessiner l'interface.
 	 */
-	update(){
+	update() {
 
 		// Si l'interface n'est pas l'interface de jeu (donc une interface plein écran).
 		if (this.idInterfaceFS !== -1) {
@@ -219,7 +219,7 @@ class Jeu {
 
 		// On dessine les éléments que les interfaces ont en commun.
 		this.draw();
-	
+
 		// Si l'interface à dessiner est l'interface de jeu.
 		if (this.idInterfaceFS === -1) {
 
@@ -228,9 +228,9 @@ class Jeu {
 				this.textesBoulesInterface[i].updateTexte(this.boules[i]);
 				this.textesBoulesInterface[i].draw();
 			}
-			
+
 			// Si l'affichage des fps est demandé, on dessine le compteur fps.
-			if(this.affichageFps){
+			if (this.affichageFps) {
 				this.engine.ctx.fillStyle = "#0005";
 
 				this.engine.ctx.fillRect(
@@ -279,7 +279,7 @@ class Jeu {
 	 * @param {Integer} x La position x du click.
 	 * @param {Integer} y La position y du click.
 	 */
-	click(x, y){
+	click(x, y) {
 
 		// Pour tous les boutons.
 		for (let i = 0; i < this.boutonsInterface.length; i++) {
@@ -298,14 +298,14 @@ class Jeu {
 	 * @param {Integer} x La position x de la souris.
 	 * @param {Integer} y La position y de la souris.
 	 */
-	move(x, y){
+	move(x, y) {
 		this.sourisOn = new Vector(x, y);
 	}
 
 	/**
 	 * Méthode permettant de retirer la boule du compte lors de son lancement.
 	 */
-	lancementBoule(){
+	lancementBoule() {
 		this.boules[this.typeBouleSelec]--;
 	}
 
@@ -313,9 +313,9 @@ class Jeu {
 	 * Méthode permettant de changer (ou mettre) la boule sur le lanceur.
 	 * @param {Integer} newType Le type de la boule à mettre sur le lanceur.
 	 */
-	changementTypeBoule(newType){
+	changementTypeBoule(newType) {
 		// S'il ne reste plus de boule, on ne fait rien.
-		if(this.boules[newType] <= 0) return;
+		if (this.boules[newType] <= 0) return;
 
 		// On selectionne la nouvelle boule.
 		this.typeBouleSelec = newType;
@@ -335,7 +335,7 @@ class Jeu {
 	 * @param {Boolean} reload Pour savoir si on charge un niveau (on charge donc le niveau prochain en avance) 
 	 * ou on recharge un niveau (le niveau suivant est déjà chargé).
 	 */
-	loadLevel(reload = false){
+	loadLevel(reload = false) {
 		if (Constants.debugMode) console.log("Niveau à charger : " + this.idLevelEnCours);
 
 		// On met un écran d'attente.
@@ -344,7 +344,7 @@ class Jeu {
 		// Si on détecte la fin.
 		// S'il y a l'attribut end, c'est que le niveau suivant n'existe pas.
 		// On fait !reload pour éviter de gagner le dernier niveau juste en faisant reload.
-		if (this.levelSuivant.end != null && !reload){
+		if (this.levelSuivant.end != null && !reload) {
 			// Si end = false, c'est que l'on a pas eu le temps de charger le niveau ou qu'il y a eu un problème avec ajax.
 			if (this.levelSuivant.end === false) console.log("Bug de chargement de niveau !");
 
@@ -357,7 +357,7 @@ class Jeu {
 		}
 
 		// Si on ne demande pas un rechargement de niveau.
-		if(!reload){
+		if (!reload) {
 			// On transfère le niveau suivant dans le niveau actuel.
 			this.levelEnCours = Object.create(this.levelSuivant);
 
@@ -387,9 +387,9 @@ class Jeu {
 		if (Constants.debugMode) this.boules = [9999, 9999, 9999, 9999];
 
 		// On séléctionne la première boule dispo.
-		for (this.typeBouleSelec = 0; this.typeBouleSelec < this.boules.length; this.typeBouleSelec++){
+		for (this.typeBouleSelec = 0; this.typeBouleSelec < this.boules.length; this.typeBouleSelec++) {
 			// Si on a trouvé une boule, on break.
-			if (this.boules[this.typeBouleSelec] > 0){
+			if (this.boules[this.typeBouleSelec] > 0) {
 				break;
 			}
 		}
@@ -416,8 +416,8 @@ class Jeu {
 
 		// On ajoute les cibles.
 		eb.forEach((elem, i) => {
-			if(elem.length != 3){
-				if (Constants.debugMode) console.log("Erreur de save : La cible " + i +" est incorrect.");
+			if (elem.length != 3) {
+				if (Constants.debugMode) console.log("Erreur de save : La cible " + i + " est incorrect.");
 				// Le return concerne la fonction anonyme, pas la méthode.
 				return;
 			}
@@ -427,7 +427,7 @@ class Jeu {
 
 		// On verifie qu'il y a au moins une case.
 		eb = this.levelEnCours.type_forme_emplacement_cases;
-		if (eb === undefined || eb.length == 0){
+		if (eb === undefined || eb.length == 0) {
 			this.erreur("Erreur de save : d'après les consignes, la cible doit être protégé par des cases.");
 			return;
 		}
@@ -439,22 +439,22 @@ class Jeu {
 				return;
 			}
 			this.engine.addCase(
-				new Vector(elem[2], elem[3]), 
-				+elem[0], 
-				+elem[1], 
+				new Vector(elem[2], elem[3]),
+				+elem[0],
+				+elem[1],
 				elem.length == 5 ? elem[4] : null
 			);
 		});
 
 		// On ajoute les murs invisible.
 		eb = this.levelEnCours.epaisseur_emplacement_murs_i;
-		if (eb !== undefined && eb.length == 5){
+		if (eb !== undefined && eb.length == 5) {
 
 			// On calcule les 4 murs.
 			this.engine.addBody(
 				new MurInvisible(
-					new Vector(eb[1] - eb[0], eb[2] + eb[0]), 
-					eb[0], 
+					new Vector(eb[1] - eb[0], eb[2] + eb[0]),
+					eb[0],
 					eb[2] - eb[4] + eb[0] * 2,
 					engine.ctx
 				)
@@ -489,9 +489,9 @@ class Jeu {
 		}
 
 		// S'il n'y a pas de mur invisible ni de mur visible, erreur.
-		else{
-			if (this.levelEnCours.type_emplacement_taille_murs_v === undefined 
-				|| this.levelEnCours.type_emplacement_taille_murs_v.length == 0){
+		else {
+			if (this.levelEnCours.type_emplacement_taille_murs_v === undefined
+				|| this.levelEnCours.type_emplacement_taille_murs_v.length == 0) {
 				this.erreur("Erreur de save : il doit y avoir au moins un mur !");
 				return;
 			}
@@ -506,17 +506,17 @@ class Jeu {
 					return;
 				}
 				this.engine.addMur(
-					new Vector(elem[2], elem[3]), 
-					elem[4], 
-					elem[5], 
-					elem[0], 
-					elem[1], 
+					new Vector(elem[2], elem[3]),
+					elem[4],
+					elem[5],
+					elem[0],
+					elem[1],
 					elem.length == 7 ? elem[6] : null
 				);
 			});
 		}
 
-		
+
 		// On ajoute les cases mouvantes.
 		eb = this.levelEnCours.type_forme_emplacement1_emplacement2_vitesse_cases_m;
 		if (eb !== undefined) {
@@ -568,10 +568,10 @@ class Jeu {
 		if (eb !== undefined)
 			this.engine.textes = this.levelEnCours.emplacement_taille_textes;
 
-		
+
 		// On regarde le bg demandé.
 		eb = this.levelEnCours.type_bg;
-		if(eb !== undefined && eb.length == 2){
+		if (eb !== undefined && eb.length == 2) {
 			this.engine.typeBg = "" + eb[0] + eb[1];
 			// eb[0] = 1 réunis tous les BG bleus.
 			if (eb[0] == 1) this.engine.colorBg = "#c4edf0";
@@ -581,7 +581,7 @@ class Jeu {
 			else if (eb[1] == 3) this.engine.colorBg = "#c58f5c";
 		}
 		// Si le Bg n'est pas spécifié ou incorrect, on met celui par défaut.
-		else{
+		else {
 			this.engine.typeBg = "00";
 			this.engine.colorBg = "#a0db44";
 		}
@@ -629,10 +629,10 @@ class Jeu {
 		this.wait();
 
 		// On récupère le résultat.
-		try{
+		try {
 			this.levelEnCours = JSON.parse(await read_file(file[0]));
 		}
-		catch(e){
+		catch (e) {
 			this.erreur("JSON non valide");
 			return;
 		}
@@ -649,24 +649,37 @@ class Jeu {
 	/**
 	 * Méthode permettant de récupérer le prochain niveau.
 	 */
-	async getNextLevel(){
+	async getNextLevel() {
 		await this.getLevel(this.idLevelEnCours + 1);
 	}
 
 	/**
 	 * Méthode permettant de récupérer le dernier id niveau enregistré dans les cookies.
 	 */
-	async getProgression(){
-		let l = 0;
+	async getProgression() {
+
+		let ajax = () => {
+			return new Promise((resolve) => {
+				let req = new XMLHttpRequest();
+
+				req.onload = () => {
+					if (Constants.debugMode) console.log("Récuperation niveau cookie : " + req.responseText);
+					resolve(+req.responseText);
+				}
+
+				req.onerror = () => {
+					if (Constants.debugMode) console.log("Erreur récuperation niveau cookie : Progression par défaut (1)");
+					resolve(1);
+				}
+
+				req.open("get", "php/getProgression.php", true);
+				req.responseType = "text";
+				req.send();
+			});
+		}
 
 		// On récupère le dernier id niveau.
-		await jQuery.ajax({
-			url: "php/getProgression.php",
-			success: function (result) {
-				l = +result;
-			}
-		});
-		if (Constants.debugMode) console.log("Récuperation niveau cookie : " + l);
+		let l = await ajax();
 
 		// On met à jour les attributs.
 		this.idLevelEnCours = l;
@@ -678,35 +691,37 @@ class Jeu {
 	 * @param {Integer} l L'id du niveau à récupérer.
 	 * @param {Booléen} loadImm Pour afficher l'écran de chargement.
 	 */
-	async getLevel(l, loadImm = false){
+	async getLevel(l, loadImm = false) {
 		if (Constants.debugMode) console.log("Niveau à récupérer : " + l);
 
 		// Si demandé, on affiche l'interface de chargement.
-		if(loadImm) this.wait();
+		if (loadImm) this.wait();
 
-		// Si le json reste comme ça, c'est que ajax n'a pas réussi à récupérer le niveau.
-		// (end: true dans le cas ou le niveau demandé est introuvable).
-		let json = {end: false};
+		// Requete ajax.
+		let ajax = (l) => {
+			return new Promise((resolve) => {
+				let req = new XMLHttpRequest();
+				req.onload = () => {
+					if (Constants.debugMode) console.log("Niveau récupéré.");
+					resolve(req.response);
+				}
 
-		// On récupère le niveau.
-		await jQuery.ajax({
-			type: "POST",
-			url: "php/getLevel.php",
-			data: {level: l},
-			success: function (result) {
-				json = result;
-				if (Constants.debugMode) console.log("Niveau récupéré.");
-			}
-		});
+				// Si erreur, json spécial.
+				req.onerror = () => {
+					if (Constants.debugMode) console.log("Erreur récupération niveau.");
+					resolve({ end: false });
+				}
 
-		try{
-			// On met à jour les attributs.
-			this.levelSuivant = JSON.parse(json);
+				req.open("post", "php/getLevel.php", true);
+				req.responseType = "json";
+				req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+				// On donne le level l.
+				req.send('level=' + l);
+			});
 		}
-		catch{
-			this.erreur("Erreur de chargement de niveau.");
-			return;
-		}
+
+		this.levelSuivant = await ajax(l);
 
 		// On affiche le niveau, si demandé.
 		if (loadImm) this.loadLevel();
@@ -718,24 +733,28 @@ class Jeu {
 	async getParam() {
 		if (Constants.debugMode) console.log("Get param");
 
-		let json = null;
+		let ajax = () => {
+			return new Promise((resolve) => {
+				let req = new XMLHttpRequest();
+
+				req.onload = () => {
+					if (Constants.debugMode) console.log("Param récupéré.");
+					resolve(req.response);
+				}
+
+				req.onerror = () => {
+					if (Constants.debugMode) console.log("Erreur Récuperation param : Param par défaut.");
+					resolve({ fps: true, suivi: true, invVis: true });
+				}
+
+				req.open("get", "php/getParam.php", true);
+				req.responseType = "json";
+				req.send();
+			});
+		}
 
 		// On récupère les paramètres.
-		await jQuery.ajax({
-			url: "php/getParam.php",
-			success: function (result) {
-				json = result;
-				if (Constants.debugMode) console.log("Param récupéré.");
-			}
-		});
-
-		try {
-			json = JSON.parse(json);
-		}
-		catch{
-			this.erreur("Erreur de chargement des paramètres. Si cela se reproduit, effacez vos cookies.");
-			return;
-		}
+		let json = await ajax();
 
 		// On met à jour les paramètres.
 		this.affichageFps = json.fps;
@@ -746,21 +765,35 @@ class Jeu {
 	/**
 	 * Méthode permettant de récupérer le nombre de niveau disponible.
 	 */
-	async getNbTotalLevel(){
-		let l = 0;
-		await jQuery.ajax({
-			url: "php/getNbLevelDispo.php",
-			success: function (result) {
-				l = +result;
-			}
-		});
-		this.nbLevel = l;
+	async getNbTotalLevel() {
+
+		let ajax = () => {
+			return new Promise((resolve) => {
+				let req = new XMLHttpRequest();
+
+				req.onload = () => {
+					if (Constants.debugMode) console.log("Nombre total de niveau récupéré.");
+					resolve(+req.responseText);
+				}
+
+				req.onerror = () => {
+					if (Constants.debugMode) console.log("Erreur récupération nombre total de niveau.");
+					resolve(1);
+				}
+
+				req.open("get", "php/getNbLevelDispo.php", true);
+				req.responseType = "text";
+				req.send();
+			});
+		}
+
+		this.nbLevel = await ajax();
 	}
 
 	/**
 	 * Méthode permettant d'initialiser les attributs lors de l'ouverture du jeu.
 	 */
-	async initAll(){
+	async initAll() {
 		this.wait();
 		this.engine.imageSecours = await this.engine.loadImage("images/secours.png");
 		await this.getProgression();
@@ -779,7 +812,7 @@ class Jeu {
 	 * Méthode permettant de sauvegarder la progression du joueur dans les cookies.
 	 * @param {Booléen} force Pour forcer la sauvegarde (si le joueur veut recommencer le jeu par exemple).
 	 */
-	async saveProgression(force = false){
+	async saveProgression(force = false) {
 		let l = this.idLevelEnCours;
 		if (Constants.debugMode) console.log("Niveau à enregistrer : " + l);
 
@@ -793,35 +826,61 @@ class Jeu {
 		this.idLevelEnCours = l;
 
 		// Si on ne force pas l'enregistrement et que le cookie est plus grand que l'id attribut, on return.
-		if(!force && old >= l) return;
+		if (!force && old >= l) return;
 
 		// On enregistre.
-		await jQuery.ajax({
-			type: "POST",
-			url: "php/setProgression.php",
-			data: { level: l },
-			success: function (result) {
-				if (Constants.debugMode) console.log("Save OK");
-			}
-		});
+		let ajax = (l) => {
+			return new Promise((resolve) => {
+				let req = new XMLHttpRequest();
+				req.onload = () => {
+					if (Constants.debugMode) console.log("Save progression OK : " + l);
+					resolve(null);
+				}
+
+				req.onerror = () => {
+					if (Constants.debugMode) console.log("Save progression Erreur");
+					resolve(null);
+				}
+
+				req.open("post", "php/setProgression.php", true);
+				req.responseType = "text";
+				req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+				// On donne le level l.
+				req.send('level=' + l);
+			});
+		}
+		await ajax(l);
 	}
 
 	/**
 	 * Méthode permettant de sauvegarder les paramètres de jeu.
 	 */
 	async saveParam() {
-		let fps = this.affichageFps;
-		let suivi = this.suiviCam;
-		let invVis = this.engine.inversionViseur;
 
-		await jQuery.ajax({
-			type: "POST",
-			url: "php/setParam.php",
-			data: { fps: fps, suivi: suivi, invVis: invVis},
-			success: function (result) {
-				if (Constants.debugMode) console.log("Save param OK");
-			}
-		});
+		let ajax = (fps, suivi, invVis) => {
+			return new Promise((resolve) => {
+				let req = new XMLHttpRequest();
+				req.onload = () => {
+					if (Constants.debugMode) console.log("Save param OK");
+					resolve(null);
+				}
+
+				req.onerror = () => {
+					if (Constants.debugMode) console.log("Save param Erreur");
+					resolve(null);
+				}
+
+				req.open("post", "php/setParam.php", true);
+				req.responseType = "text";
+				req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+				// On donne le level l.
+				req.send("fps=" + fps + "&suivi=" + suivi + "&invVis=" + invVis);
+			});
+		}
+
+		await ajax(this.affichageFps, this.suiviCam, this.engine.inversionViseur);
 	}
 
 	/**
@@ -1459,7 +1518,7 @@ class Jeu {
 	 * Méthode permettant de générer l'interface de fin de niveau.
 	 * @param {Booléen} perso Pour savoir si on a fini un niveau perso ou pas.
 	 */
-	win(perso = false){
+	win(perso = false) {
 
 		// On efface les listes d'éléments.
 		this.boutonsInterface = [];
@@ -1471,12 +1530,12 @@ class Jeu {
 		this.idInterfaceFS = 2;
 
 		// Si perso, on ne peut pas continuer (vu qu'il y a qu'un niveau chargé).
-		if(!perso){
+		if (!perso) {
 			this.boutonsInterface.push(
 				new Bouton(
 					this.engine.ctx,
 					this.engine.width / 4,
-					2*this.engine.height / 3,
+					2 * this.engine.height / 3,
 					this.engine.width / 3,
 					this.engine.height / 4,
 					"Niveau suivant",
@@ -1505,7 +1564,7 @@ class Jeu {
 			new Bouton(
 				this.engine.ctx,
 				(perso ? 2 : 3) * this.engine.width / 4,
-				2*this.engine.height / 3,
+				2 * this.engine.height / 3,
 				this.engine.width / (perso ? 2 : 3),
 				this.engine.height / 4,
 				"Aller vers l'accueil",
@@ -1513,7 +1572,7 @@ class Jeu {
 				true,
 				() => {
 					if (Constants.debugMode) console.log("Clic Accueil");
-					if(!perso){
+					if (!perso) {
 						this.idLevelEnCours++;
 						this.saveProgression();
 					}

@@ -50,7 +50,7 @@
 		[5, 460, 0]
 	],
 
-	"type_bg": [0, 0],
+	"type_bg": [0, 1],
 
 	"emplacement_taille_textes": [
 		[600, 440, 40, "Vous avez plusieurs boules en bas,"],
