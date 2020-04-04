@@ -16,6 +16,13 @@ https://www.lri.fr/~kn/teaching/js/projet/2019-2020/projet_m1_info_2019-2020.pdf
 - Toutes implémentées.
 
 # Derniers changements :
+## [Version 1.21 / Build F200405.2] - 2020-04-05
+
+### Fixed
+
+- Quelques corrections.
+
+
 ## [Version 1.2 / Build F200405.1] - 2020-04-05
 
 ### Changed

@@ -6,6 +6,16 @@ Projet WEB : Projet Cataboule (M1S2 - 2019-2020)
 
 # Changelog
 
+## [Version 1.21 / Build F200405.2] - 2020-04-05
+
+### Fixed
+
+- Quelques corrections.
+
+&nbsp;
+___
+&nbsp;
+
 ## [Version 1.2 / Build F200405.1] - 2020-04-05
 
 ### Changed
