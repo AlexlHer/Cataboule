@@ -668,7 +668,7 @@ class Jeu {
 		let ajax = (l) => {
 			return new Promise((resolve) => {
 				let req = new XMLHttpRequest();
-				req.onload = () => {
+				req.onloadend = () => {
 
 					// Si erreur, json spécial.
 					if (req.status == 404) {
@@ -704,7 +704,7 @@ class Jeu {
 		let ajax = (l) => {
 			return new Promise((resolve) => {
 				let req = new XMLHttpRequest();
-				req.onload = () => {
+				req.onloadend = () => {
 
 					// Si erreur, json spécial.
 					if (req.status == 404) {
@@ -734,10 +734,10 @@ class Jeu {
 	async initAll() {
 		this.wait();
 		this.engine.imageSecours = await this.engine.loadImage("images/secours.png");
-		await this.getProgression();
+		this.getProgression();
 		await this.getLevel(this.idLevelEnCours);
 		await this.getNbTotalLevel();
-		await this.getParam();
+		this.getParam();
 		await this.chargementImageNiveau();
 		await this.engine.chargementImages();
 		this.creationBgInterface();
@@ -749,13 +749,13 @@ class Jeu {
 	/**
 	 * Méthode permettant de récupérer le dernier id niveau enregistré dans les cookies.
 	 */
-	async getProgression() {
+	getProgression() {
 
 		// On met à jour les attributs.
-		this.idLevelEnCours = localStorage.getItem("progression") === null ? 1 : localStorage.getItem("progression");
+		this.idLevelEnCours = localStorage.getItem("progression") === null ? 1 : +localStorage.getItem("progression");
 		this.idLevelMaxCookie = this.idLevelEnCours;
 
-		if (Constants.debugMode) console.log("Récuperation niveau : " + this.idLevelEnCours);
+		if (Constants.debugMode) console.log("Récuperation progression : " + this.idLevelEnCours);
 
 	}
 
@@ -763,49 +763,42 @@ class Jeu {
 	 * Méthode permettant de sauvegarder la progression du joueur dans les cookies.
 	 * @param {Booléen} force Pour forcer la sauvegarde (si le joueur veut recommencer le jeu par exemple).
 	 */
-	async saveProgression(force = false) {
-		let l = this.idLevelEnCours;
-		if (Constants.debugMode) console.log("Niveau à enregistrer : " + l);
-
-		// On récupère la progression enregistré dans les cookies.
-		await this.getProgression();
-
-		// On récupère la progression récupéré au dessus.
-		let old = this.idLevelEnCours;
-
-		// On remet l'id attribut.
-		this.idLevelEnCours = l;
+	saveProgression(force = false) {
+		// On récupère la progression enregistré.
+		let old = localStorage.getItem("progression") === null ? 1 : +localStorage.getItem("progression");
 
 		// Si on ne force pas l'enregistrement et que le cookie est plus grand que l'id attribut, on return.
-		if (!force && old >= l) return;
+		if (!force && old >= this.idLevelEnCours) return;
 
 		// On enregistre.
-		localStorage.setItem("progression", l);
+		localStorage.setItem("progression", this.idLevelEnCours);
+		if (Constants.debugMode) console.log("Enregistrement progression : " + this.idLevelEnCours);
+
 	}
 
 	/**
 	 * Méthode permettant de récupérer les paramètres enregistrés dans les cookies.
 	 */
-	async getParam() {
+	getParam() {
 
 		// On récupère les paramètres.
 		if (Constants.debugMode) console.log("Param récupéré.");
 
-		this.affichageFps = localStorage.getItem("fps") === null ? true : localStorage.getItem("fps");
-		this.suiviCam = localStorage.getItem("suivi") === null ? true : localStorage.getItem("suivi");
-		this.engine.inversionViseur = localStorage.getItem("invVis") === null ? true : localStorage.getItem("invVis");
+		this.affichageFps = localStorage.getItem("fps") === null ? true : +localStorage.getItem("fps");
+		this.suiviCam = localStorage.getItem("suivi") === null ? true : +localStorage.getItem("suivi");
+		this.engine.inversionViseur = localStorage.getItem("invVis") === null ? true : +localStorage.getItem("invVis");
 	}
 
 	/**
 	 * Méthode permettant de sauvegarder les paramètres de jeu.
 	 */
-	async saveParam() {
+	saveParam() {
 
 		if (Constants.debugMode) console.log("Save param OK");
 
-		localStorage.setItem("fps", this.affichageFps);
-		localStorage.setItem("suivi", this.suiviCam);
-		localStorage.setItem("invVis", this.engine.inversionViseur);
+		localStorage.setItem("fps", +this.affichageFps);
+		localStorage.setItem("suivi", +this.suiviCam);
+		localStorage.setItem("invVis", +this.engine.inversionViseur);
 	}
 
 	/**
