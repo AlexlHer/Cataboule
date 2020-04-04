@@ -16,9 +16,12 @@ https://www.lri.fr/~kn/teaching/js/projet/2019-2020/projet_m1_info_2019-2020.pdf
 - Toutes implémentées.
 
 # Derniers changements :
-## [Version 1.1 / Build F200402.1] - 2020-04-02
+## [Version 1.2 / Build F200405.1] - 2020-04-05
 
 ### Changed
 
-- Suppression de jQuery (donc remplacement des jQuery.ajax par des XMLHttpRequest).
-- Modification de la déco des niveaux.
+- Dans une optique de 100% JS, suppression de tous les php :
+    - Chargement des niveaux directement avec XMLHttpRequest() sans passer par php.
+    - Utilisation de localStorage au lieu des cookies.
+    - Ajout d'un fichier nbLevels.json dans levels/ pour avoir le nombre de niveaux sans exploration.
+    - Mise à jour du rapport.

@@ -6,6 +6,20 @@ Projet WEB : Projet Cataboule (M1S2 - 2019-2020)
 
 # Changelog
 
+## [Version 1.2 / Build F200405.1] - 2020-04-05
+
+### Changed
+
+- Dans une optique de 100% JS, suppression de tous les php :
+	- Chargement des niveaux directement avec XMLHttpRequest() sans passer par php.
+	- Utilisation de localStorage au lieu des cookies.
+	- Ajout d'un fichier nbLevels.json dans levels/ pour avoir le nombre de niveaux sans exploration.
+	- Mise à jour du rapport.
+
+&nbsp;
+___
+&nbsp;
+
 ## [Version 1.1 / Build F200402.1] - 2020-04-02
 
 ### Changed
