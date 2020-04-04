@@ -654,39 +654,6 @@ class Jeu {
 	}
 
 	/**
-	 * Méthode permettant de récupérer le dernier id niveau enregistré dans les cookies.
-	 */
-	async getProgression() {
-
-		let ajax = () => {
-			return new Promise((resolve) => {
-				let req = new XMLHttpRequest();
-
-				req.onload = () => {
-					if (Constants.debugMode) console.log("Récuperation niveau cookie : " + req.responseText);
-					resolve(+req.responseText);
-				}
-
-				req.onerror = () => {
-					if (Constants.debugMode) console.log("Erreur récuperation niveau cookie : Progression par défaut (1)");
-					resolve(1);
-				}
-
-				req.open("get", "php/getProgression.php", true);
-				req.responseType = "text";
-				req.send();
-			});
-		}
-
-		// On récupère le dernier id niveau.
-		let l = await ajax();
-
-		// On met à jour les attributs.
-		this.idLevelEnCours = l;
-		this.idLevelMaxCookie = l;
-	}
-
-	/**
 	 * Méthode permettant de récupérer le niveau demandé.
 	 * @param {Integer} l L'id du niveau à récupérer.
 	 * @param {Booléen} loadImm Pour afficher l'écran de chargement.
@@ -702,22 +669,23 @@ class Jeu {
 			return new Promise((resolve) => {
 				let req = new XMLHttpRequest();
 				req.onload = () => {
+
+					// Si erreur, json spécial.
+					if (req.status == 404) {
+						if (Constants.debugMode) console.log("Erreur récupération niveau.");
+						resolve({ end: false });
+						return;
+					}
+
 					if (Constants.debugMode) console.log("Niveau récupéré.");
 					resolve(req.response);
 				}
 
-				// Si erreur, json spécial.
-				req.onerror = () => {
-					if (Constants.debugMode) console.log("Erreur récupération niveau.");
-					resolve({ end: false });
-				}
-
-				req.open("post", "php/getLevel.php", true);
+				req.open("get", "levels/level" + l + ".json", true);
 				req.responseType = "json";
-				req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
 				// On donne le level l.
-				req.send('level=' + l);
+				req.send();
 			});
 		}
 
@@ -728,61 +696,31 @@ class Jeu {
 	}
 
 	/**
-	 * Méthode permettant de récupérer les paramètres enregistrés dans les cookies.
-	 */
-	async getParam() {
-		if (Constants.debugMode) console.log("Get param");
-
-		let ajax = () => {
-			return new Promise((resolve) => {
-				let req = new XMLHttpRequest();
-
-				req.onload = () => {
-					if (Constants.debugMode) console.log("Param récupéré.");
-					resolve(req.response);
-				}
-
-				req.onerror = () => {
-					if (Constants.debugMode) console.log("Erreur Récuperation param : Param par défaut.");
-					resolve({ fps: true, suivi: true, invVis: true });
-				}
-
-				req.open("get", "php/getParam.php", true);
-				req.responseType = "json";
-				req.send();
-			});
-		}
-
-		// On récupère les paramètres.
-		let json = await ajax();
-
-		// On met à jour les paramètres.
-		this.affichageFps = json.fps;
-		this.suiviCam = json.suivi;
-		this.engine.inversionViseur = json.invVis;
-	}
-
-	/**
 	 * Méthode permettant de récupérer le nombre de niveau disponible.
 	 */
 	async getNbTotalLevel() {
 
-		let ajax = () => {
+		// Requete ajax.
+		let ajax = (l) => {
 			return new Promise((resolve) => {
 				let req = new XMLHttpRequest();
-
 				req.onload = () => {
+
+					// Si erreur, json spécial.
+					if (req.status == 404) {
+						if (Constants.debugMode) console.log("Erreur récupération nombre total de niveau.");
+						resolve(1);
+						return;
+					}
+
 					if (Constants.debugMode) console.log("Nombre total de niveau récupéré.");
-					resolve(+req.responseText);
+					resolve(req.response.nombre_de_levels);
 				}
 
-				req.onerror = () => {
-					if (Constants.debugMode) console.log("Erreur récupération nombre total de niveau.");
-					resolve(1);
-				}
+				req.open("get", "levels/nbLevels.json", true);
+				req.responseType = "json";
 
-				req.open("get", "php/getNbLevelDispo.php", true);
-				req.responseType = "text";
+				// On donne le level l.
 				req.send();
 			});
 		}
@@ -809,6 +747,19 @@ class Jeu {
 	}
 
 	/**
+	 * Méthode permettant de récupérer le dernier id niveau enregistré dans les cookies.
+	 */
+	async getProgression() {
+
+		// On met à jour les attributs.
+		this.idLevelEnCours = localStorage.getItem("progression") === null ? 1 : localStorage.getItem("progression");
+		this.idLevelMaxCookie = this.idLevelEnCours;
+
+		if (Constants.debugMode) console.log("Récuperation niveau : " + this.idLevelEnCours);
+
+	}
+
+	/**
 	 * Méthode permettant de sauvegarder la progression du joueur dans les cookies.
 	 * @param {Booléen} force Pour forcer la sauvegarde (si le joueur veut recommencer le jeu par exemple).
 	 */
@@ -829,28 +780,20 @@ class Jeu {
 		if (!force && old >= l) return;
 
 		// On enregistre.
-		let ajax = (l) => {
-			return new Promise((resolve) => {
-				let req = new XMLHttpRequest();
-				req.onload = () => {
-					if (Constants.debugMode) console.log("Save progression OK : " + l);
-					resolve(null);
-				}
+		localStorage.setItem("progression", l);
+	}
 
-				req.onerror = () => {
-					if (Constants.debugMode) console.log("Save progression Erreur");
-					resolve(null);
-				}
+	/**
+	 * Méthode permettant de récupérer les paramètres enregistrés dans les cookies.
+	 */
+	async getParam() {
 
-				req.open("post", "php/setProgression.php", true);
-				req.responseType = "text";
-				req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+		// On récupère les paramètres.
+		if (Constants.debugMode) console.log("Param récupéré.");
 
-				// On donne le level l.
-				req.send('level=' + l);
-			});
-		}
-		await ajax(l);
+		this.affichageFps = localStorage.getItem("fps") === null ? true : localStorage.getItem("fps");
+		this.suiviCam = localStorage.getItem("suivi") === null ? true : localStorage.getItem("suivi");
+		this.engine.inversionViseur = localStorage.getItem("invVis") === null ? true : localStorage.getItem("invVis");
 	}
 
 	/**
@@ -858,29 +801,11 @@ class Jeu {
 	 */
 	async saveParam() {
 
-		let ajax = (fps, suivi, invVis) => {
-			return new Promise((resolve) => {
-				let req = new XMLHttpRequest();
-				req.onload = () => {
-					if (Constants.debugMode) console.log("Save param OK");
-					resolve(null);
-				}
+		if (Constants.debugMode) console.log("Save param OK");
 
-				req.onerror = () => {
-					if (Constants.debugMode) console.log("Save param Erreur");
-					resolve(null);
-				}
-
-				req.open("post", "php/setParam.php", true);
-				req.responseType = "text";
-				req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
-				// On donne le level l.
-				req.send("fps=" + fps + "&suivi=" + suivi + "&invVis=" + invVis);
-			});
-		}
-
-		await ajax(this.affichageFps, this.suiviCam, this.engine.inversionViseur);
+		localStorage.setItem("fps", this.affichageFps);
+		localStorage.setItem("suivi", this.suiviCam);
+		localStorage.setItem("invVis", this.engine.inversionViseur);
 	}
 
 	/**
