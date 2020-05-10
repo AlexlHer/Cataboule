@@ -6,6 +6,21 @@ Projet WEB : Projet Cataboule (M1S2 - 2019-2020)
 
 # Changelog
 
+## [Version 1.22 / Build F200510.1] - 2020-05-10
+
+### Changed
+
+- Le bouton "Continuer" devient le bouton "Jouer".
+
+### Fixed
+
+- Correction au niveau de la récupération d'un niveau suivant inexistant.
+- Correction au niveau de l'actualisation de maxCookie.
+
+&nbsp;
+___
+&nbsp;
+
 ## [Version 1.21 / Build F200405.2] - 2020-04-05
 
 ### Fixed

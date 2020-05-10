@@ -661,6 +661,11 @@ class Jeu {
 	async getLevel(l, loadImm = false) {
 		if (Constants.debugMode) console.log("Niveau à récupérer : " + l);
 
+		if(l > this.nbLevel){
+			this.levelSuivant = { end: true };
+			return;
+		}
+
 		// Si demandé, on affiche l'interface de chargement.
 		if (loadImm) this.wait();
 
@@ -735,8 +740,8 @@ class Jeu {
 		this.wait();
 		this.engine.imageSecours = await this.engine.loadImage("images/secours.png");
 		this.getProgression();
-		await this.getLevel(this.idLevelEnCours);
 		await this.getNbTotalLevel();
+		await this.getLevel(this.idLevelEnCours);
 		this.getParam();
 		await this.chargementImageNiveau();
 		await this.engine.chargementImages();
@@ -772,6 +777,9 @@ class Jeu {
 
 		// On enregistre.
 		localStorage.setItem("progression", this.idLevelEnCours);
+
+		// On actualise maxCookie.
+		this.idLevelMaxCookie = this.idLevelEnCours;
 		if (Constants.debugMode) console.log("Enregistrement progression : " + this.idLevelEnCours);
 
 	}
@@ -1260,7 +1268,7 @@ class Jeu {
 				2 * this.engine.height / 3,
 				this.engine.width / 3,
 				this.engine.height / 4,
-				"Continuer",
+				"Jouer",
 				30,
 				true,
 				() => {
@@ -1623,7 +1631,7 @@ class Jeu {
 		this.idInterfaceFS = 4;
 
 		// S'il y a un problème au niveau de l'id du niveau en cours.
-		if (this.idLevelEnCours >= this.nbLevel) this.oldIdLevelEnCours = this.nbLevel;
+		if (this.idLevelEnCours > this.nbLevel) this.oldIdLevelEnCours = this.nbLevel;
 		else this.oldIdLevelEnCours = this.idLevelEnCours;
 
 
@@ -1640,8 +1648,10 @@ class Jeu {
 				true,
 				() => {
 					if (Constants.debugMode) console.log("Clic +1");
-					if (this.oldIdLevelEnCours == this.idLevelMaxCookie
-						|| this.oldIdLevelEnCours == this.nbLevel) return;
+					
+					// Superieur ou égal et non supérieur car le += 1 est après.
+					if (this.oldIdLevelEnCours >= this.idLevelMaxCookie
+						|| this.oldIdLevelEnCours >= this.nbLevel) return;
 					this.oldIdLevelEnCours += 1;
 				},
 				{
