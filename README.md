@@ -16,6 +16,19 @@ https://www.lri.fr/~kn/teaching/js/projet/2019-2020/projet_m1_info_2019-2020.pdf
 - Toutes implémentées.
 
 # Derniers changements :
+
+## [Version 1.22 / Build F200510.1] - 2020-05-10
+
+### Changed
+
+- Le bouton "Continuer" devient le bouton "Jouer".
+
+### Fixed
+
+- Correction au niveau de la récupération d'un niveau suivant inexistant.
+- Correction au niveau de l'actualisation de maxCookie.
+
+
 ## [Version 1.21 / Build F200405.2] - 2020-04-05
 
 ### Fixed
