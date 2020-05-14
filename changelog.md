@@ -6,6 +6,16 @@ Projet WEB : Projet Cataboule (M1S2 - 2019-2020)
 
 # Changelog
 
+## [Version 1.23 / Build F200514.1] - 2020-05-14
+
+### Fixed
+
+- Correction au niveau du changement de niveau après chargement d'un niveau perso.
+
+&nbsp;
+___
+&nbsp;
+
 ## [Version 1.22 / Build F200510.1] - 2020-05-10
 
 ### Changed
