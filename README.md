@@ -9,6 +9,8 @@ https://www.lri.fr/~kn/teaching/js/projet/2019-2020/projet_m1_info_2019-2020.pdf
 
 ![alt text](Evolution/Fin.png)
 
+https://tp-ssh1.dep-informatique.u-psud.fr/~alherit/M1/M1S2_projet_web/cataboule/index.php
+
 ## Fonctionnalités de base
 - Toutes implémentées.
 
@@ -16,6 +18,13 @@ https://www.lri.fr/~kn/teaching/js/projet/2019-2020/projet_m1_info_2019-2020.pdf
 - Toutes implémentées.
 
 # Derniers changements :
+
+## [Version 1.23 / Build F200514.1] - 2020-05-14
+
+### Fixed
+
+- Correction au niveau du changement de niveau après chargement d'un niveau perso.
+
 
 ## [Version 1.22 / Build F200510.1] - 2020-05-10
 
@@ -27,21 +36,3 @@ https://www.lri.fr/~kn/teaching/js/projet/2019-2020/projet_m1_info_2019-2020.pdf
 
 - Correction au niveau de la récupération d'un niveau suivant inexistant.
 - Correction au niveau de l'actualisation de maxCookie.
-
-
-## [Version 1.21 / Build F200405.2] - 2020-04-05
-
-### Fixed
-
-- Quelques corrections.
-
-
-## [Version 1.2 / Build F200405.1] - 2020-04-05
-
-### Changed
-
-- Dans une optique de 100% JS, suppression de tous les php :
-    - Chargement des niveaux directement avec XMLHttpRequest() sans passer par php.
-    - Utilisation de localStorage au lieu des cookies.
-    - Ajout d'un fichier nbLevels.json dans levels/ pour avoir le nombre de niveaux sans exploration.
-    - Mise à jour du rapport.

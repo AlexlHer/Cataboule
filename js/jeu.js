@@ -1502,6 +1502,7 @@ class Jeu {
 						this.idLevelEnCours++;
 						this.saveProgression();
 					}
+					else this.idLevelEnCours = this.oldIdLevelEnCours;
 					this.engine.clearAll();
 					this.accueil();
 				},
