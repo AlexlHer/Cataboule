@@ -2,14 +2,14 @@
 ## Par Alexandre l'Heritier
 Jeu de catapulte en JavaScript.
 
+[Pour jouer au jeu, c'est ici !](https://alexlher.github.io/Cataboule/)
+
 Projet WEB M1S2 :
 https://www.lri.fr/~kn/teaching/js/projet/2019-2020/projet_m1_info_2019-2020.pdf
 
 "Le but de ce projet est de concevoir un jeu de catapulte (de type Angry Birds, mais plus modeste) en HTML5 + Javascript."
 
 ![alt text](Evolution/Fin.png)
-
-https://tp-ssh1.dep-informatique.u-psud.fr/~alherit/M1/M1S2_projet_web/cataboule/index.php
 
 ## Fonctionnalités de base
 - Toutes implémentées.
