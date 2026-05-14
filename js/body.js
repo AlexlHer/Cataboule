@@ -1,3 +1,8 @@
+//------------------------------------------------------------------------------
+// Copyright 2020-2026
+// See the top-level LICENSE file for details.
+// SPDX-License-Identifier: GPL-3.0-or-later
+//------------------------------------------------------------------------------
 // Auteur : Kim Nguyen
 // Modifié par : Alexandre l'Heritier
 
